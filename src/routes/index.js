@@ -1,10 +1,27 @@
 const express = require("express");
 const morgan = require("morgan");
+const session = require("express-session");
 const { NotFoundMiddleware, ErrorMiddleware } = require("../middlewares");
 const AuthRouter = require("./auth.route");
+const { SESSION_LIFETIME, SESSION_NAME, SESSION_SECRET} = require("../config");
 
 const router = express.Router();
+const IN_PROD = (NODE_ENV === )
 
+
+router.use(
+  session({
+    name: SESSION_NAME,
+    resave: false,
+    saveUninitialized: false,
+    secret: SESSION_SECRET,
+    cookie: {
+      maxAge: SESSION_LIFETIME,
+      sameSite: "true",
+      secure: false //For development perpuses
+    }
+  })
+);
 //Default Middlewares
 router.use(express.json()).use(morgan("dev"));
 
