@@ -1,6 +1,7 @@
 // Aqui inicial la configuracion de nuestro entorno
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+  process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 }
 
 // Aqui ponemos todas las variables de configuracion en un solo punto para poder acceder a ellas
