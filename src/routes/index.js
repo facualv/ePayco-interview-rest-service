@@ -3,8 +3,9 @@ const morgan = require('morgan');
 const session = require('express-session');
 const helmet = require('helmet');
 const cors = require('cors');
-const { NotFoundMiddleware, ErrorMiddleware } = require('../middlewares');
 const { SESSION_LIFETIME, SESSION_NAME, SESSION_SECRET } = require('../config');
+const { NotFoundMiddleware, ErrorMiddleware } = require('../middlewares');
+const { AuthController } = require('../controllers');
 
 const router = express.Router();
 
@@ -29,22 +30,10 @@ router.use(
   })
 );
 
-//Routes
-router.post('/signup', (req, res, next) => {
-  const { clientId } = req.body;
-  req.session.clientId = clientId;
-  console.log(req.session.id);
-  res.json({
-    messagee: 'login Route'
-  });
-});
 
-router.post('/signin', (req, res, next) => {
-  console.log(req);
-  res.json({
-    messagee: `Somebody just loged whit this id`
-  });
-});
+router.post('/signup', AuthController.signIn);
+router.post('/login', AuthController.login);
+
 
 router.post('/payment', (req, res, next) => {
   res.json({
