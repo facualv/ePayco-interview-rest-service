@@ -11,5 +11,6 @@ module.exports = {
   APPLICATION_NAME: process.env.APPLICATION_NAME,
   SESSION_SECRET: process.env.SESSION_SECRET,
   SESSION_LIFETIME: process.env.SESSION_LIFETIME,
-  SESSION_NAME: process.env.SESSION_NAME
+  SESSION_NAME: process.env.SESSION_NAME,
+  REQUEST_URL: process.env.REQUEST_URL
 };
