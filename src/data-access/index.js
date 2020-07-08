@@ -1,31 +1,33 @@
 const soapRequest = require('easy-soap-request');
+const { REQUEST_URL } = require('./src/config');
+
 const {
-  IntegrationHelper: { getLoginXmlRquestBody }
+  IntegrationHelper: { getLoginXmlBody }
 } = require('../helpers');
 
-const url = 'https://localhost:44348/SoapWebService.asmx';
+// const url = 'https://localhost:44348/SoapWebService.asmx';
 
-async function signIn() {
-
+async function logIn(login) {
+  const { email, password } = login;
+  const xmlBody = getLoginXmlBody(email, password);
   const header = {
     'Content-Type': 'application/soap+xml'
   };
 
+  //Calls the external resource
   const { response } = await soapRequest({
-    url: 'https://localhost:44348/SoapWebService.asmx',
+    url: REQUEST_URL,
     headers: header,
-    xml: xmls
+    xml: xmlBody
   });
 
   const { body, statusCode } = response;
 
-  console.log(JSON.stringify(body));
-
+  //Parses the body of the response to an objects with specific format
   parseStringPromise(body, { mergeAttrs: true }, function (err, result) {
     console.dir(result);
   })
     .then(function (result) {
-
       const response =
         result['soap:Envelope']['soap:Body'][0]['loginResponse'][0]['loginResult'][0];
 
@@ -45,17 +47,15 @@ async function signIn() {
         .replace(' [', '')
         .replace(']', '')
         .replace(' [', '')
-        .replace(']', '');
-
+        .replace(' ]', '');
 
       const responseObject = JSON.parse(json);
-
-      // const loginResponse = envelope['soap:Body']
       console.log(responseObject);
+      return responseObject;
     })
     .catch(function (err) {
       console.dir(err);
     });
-})();
+}
 
-module.exports = signIn;
+module.exports = { logIn };
