@@ -29,24 +29,11 @@ https://localhost:YOURPORT/
 
 #### POST /signup
 
-Ejemplo del cuerpo de la petición:
-
-  {
-    "name": "User",
-    "clientId": "personal id number",
-    "email": "comUser@gmail.com",
-    "phone": "3514121232",
-    "password": "user"
-  }
+- Permite Crear una cuenta
 
 #### POST /login
 
-Ejemplo del cuerpo de la petición:
-
-  {
-    "email": "comUser@gmail.com",
-    "password": "user"
-  }
+- Permite loguearse en la cuenta
 
 #### GET /geBalance
 
