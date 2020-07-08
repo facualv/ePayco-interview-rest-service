@@ -31,22 +31,22 @@ https://localhost:YOURPORT/
 
 Ejemplo del cuerpo de la petición:
 
-{
-"username": "user",
-"fullname": "Common User",
-"email": "comUser@gmail.com",
-"phone": "3514121232",
-"password": "user"
-}
+  {
+    "name": "User",
+    "clientId": "personal id number",
+    "email": "comUser@gmail.com",
+    "phone": "3514121232",
+    "password": "user"
+  }
 
 #### POST /login
 
 Ejemplo del cuerpo de la petición:
 
-{
-"email": "comUser@gmail.com",
-"password": "user"
-}
+  {
+    "email": "comUser@gmail.com",
+    "password": "user"
+  }
 
 #### GET /geBalance
 
