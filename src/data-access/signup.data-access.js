@@ -1,19 +1,14 @@
 const soapRequest = require('easy-soap-request');
-const { REQUEST_URL } = require('./src/config');
+const { REQUEST_URL } = require('../config');
 const {
   IntegrationHelper: { generateXmlSignUpBody }
 } = require('../helpers');
 
 // const url = 'https://localhost:44348/SoapWebService.asmx';
 
-async function signUp() {
-  const xmls = generateXmlSignUpBody(
-    30029582,
-    'Mariano mas',
-    15412147,
-    'marianoAlfaro@gmail.com',
-    'saltedpasword'
-  );
+async function signUp(newClient) {
+  const { clientId, name, phone, email, password } = newClient;
+  const xmls = generateXmlSignUpBody(clientId, name, phone, email, password);
 
   const header = {
     'Content-Type': 'application/soap+xml'

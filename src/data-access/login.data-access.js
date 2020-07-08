@@ -1,5 +1,5 @@
 const soapRequest = require('easy-soap-request');
-const { REQUEST_URL } = require('./src/config');
+const { REQUEST_URL } = require('../config');
 
 const {
   IntegrationHelper: { generateXmlLoginBody }
