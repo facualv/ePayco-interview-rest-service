@@ -1,40 +1,49 @@
 const { compareSync, hashSync, genSaltSync } = require('bcryptjs');
 const dataAccess = require('../data-access');
 
-async function signUp(client) {
-  const { email } = client;
+async function signUp(newClient) {
+  const { email } = newClient;
 
-  const { clientexist } = await dataAccess.LogIn(email);
+  //Checks if there is a client with the email
+  const response = await dataAccess.LogIn(email);
+  const { Client } = response;
 
-  if (clientexist) {
+  if (Client) {
     const error = new Error();
     error.message = 'Client already exist';
     error.status = 401;
     throw error;
   }
 
+  //Here comes the encryptyon of the password
   const salt = genSaltSync(10);
-  const hashedPassword = hashSync(client.password, salt);
-  client.password = hashedPassword;
+  const hashedPassword = hashSync(newClient.password, salt);
+  newClient.password = hashedPassword;
 
-  return await dataAccess.SignUp(client);
+  // Sends the data to create a client and returns a response (check the response format in DATA ACCESS LAYER)
+  return await dataAccess.SignUp(newClient);
 }
 
 async function logIn(email, password) {
   //Searchs the client by email
-  const { Client } = await dataAccess.LogIn(email);
+  const response = await dataAccess.LogIn(email);
 
-  // Check if there is a value
+  //Extracts the client from the response
+  const { Client } = response;
+
+  // If the client doesnt exists it returns an error
   if (!Client) {
     const error = new Error();
-    error.message = 'User does not exist';
+    error.message = 'Client doesnt not exist';
     error.status = 404;
     throw error;
   }
 
-  //If the client exists ir compares the passwords
+  // console.log(Client);
+
+  //It compares the passwords
   const loginPassword = password;
-  const storedPassword = Client.password;
+  const storedPassword = Client.Password;
   const validPassword = compareSync(loginPassword, storedPassword);
 
   if (!validPassword) {
@@ -43,7 +52,8 @@ async function logIn(email, password) {
     error.status = 404;
     throw error;
   }
-  return Client;
+
+  return response;
 }
 
 module.exports = {
