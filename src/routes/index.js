@@ -19,21 +19,20 @@ router.use(
     secret: SESSION_SECRET,
     cookie: {
       maxAge: Number(SESSION_LIFETIME),
-      sameSite: 'true',
+      sameSite: 'none',
       secure: false //For development perpuses
     }
   })
 );
 router.use(
   cors({
-    origin: 'http://localhost:8080'
+    origin: 'http://localhost:8080',
+    credentials: true
   })
 );
 
-
 router.post('/signup', AuthController.signIn);
 router.post('/login', AuthController.login);
-
 
 router.post('/payment', (req, res, next) => {
   res.json({
