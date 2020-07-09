@@ -1,28 +1,31 @@
 const soapRequest = require('easy-soap-request');
 var { parseStringPromise, parseString } = require('xml2js');
 const { REQUEST_URL } = require('../config');
-
 const {
   IntegrationHelper: { generateXmlLoginBody }
 } = require('../helpers');
 
-// const url = 'https://localhost:44348/SoapWebService.asmx';
+//------------------------ LOGIN FUNCTION-----------------------------------------
 
 async function login(email) {
+  // Calls the xml generator
   const xmls = generateXmlLoginBody(email);
+
   const header = {
     'Content-Type': 'application/soap+xml'
   };
 
+  // Calls the external service
   const { response } = await soapRequest({
     url: 'https://localhost:44348/SoapWebService.asmx',
     headers: header,
     xml: xmls
   });
 
+  //Extracts the properties
   const { headers, body, statusCode } = response;
 
-  //here it return the bloody promise !!!!!!!!!!!!
+  //This function parses the body and returns it (a promise!!!!)
   return parseStringPromise(body, { mergeAttrs: true }, function (err, result) {
     // console.dir(result);
   })
@@ -50,6 +53,7 @@ async function login(email) {
         .replace(' [', '')
         .replace(' ]', '');
 
+      // Here ir returns the parsed reponse
       return JSON.parse(json);
     })
     .catch(function (err) {
