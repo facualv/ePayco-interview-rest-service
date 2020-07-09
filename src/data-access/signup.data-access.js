@@ -1,4 +1,5 @@
 const soapRequest = require('easy-soap-request');
+var { parseStringPromise, parseString } = require('xml2js');
 const { REQUEST_URL } = require('../config');
 const {
   IntegrationHelper: { generateXmlSignUpBody }
