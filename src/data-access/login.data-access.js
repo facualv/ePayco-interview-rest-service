@@ -1,15 +1,15 @@
 const soapRequest = require('easy-soap-request');
-var { parseStringPromise, parseString } = require('xml2js');
+var { parseStringPromise } = require('xml2js');
 const { REQUEST_URL } = require('../config');
 const {
-  IntegrationHelper: { generateXmlLoginBody }
+  IntegrationHelper: { generateXmlLogin }
 } = require('../helpers');
 
-//------------------------ LOGIN FUNCTION-----------------------------------------
 
+//------------------------ LOGIN FUNCTION-----------------------------------------
 async function login(email) {
   // Calls the xml generator
-  const xmls = generateXmlLoginBody(email);
+  const xmls = generateXmlLogin(email);
 
   const header = {
     'Content-Type': 'application/soap+xml'
