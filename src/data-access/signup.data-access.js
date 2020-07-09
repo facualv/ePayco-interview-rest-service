@@ -22,9 +22,8 @@ async function signUp(newClient) {
   });
 
   const { headers, body, statusCode } = response;
-  console.log(JSON.stringify(body));
 
-  parseStringPromise(body, { mergeAttrs: true }, function (err, result) {
+  return parseStringPromise(body, { mergeAttrs: true }, function (err, result) {
     // console.dir(result);
   })
     .then(function (result) {
@@ -51,9 +50,7 @@ async function signUp(newClient) {
         .replace(' [', '')
         .replace(' ]', '');
 
-      const responseObject = JSON.parse(json);
-      console.log(responseObject);
-      return responseObject;
+      return JSON.parse(json);
     })
     .catch(function (err) {
       console.dir(err);
