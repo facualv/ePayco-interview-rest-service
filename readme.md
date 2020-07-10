@@ -17,7 +17,7 @@ Su objetivo es hacer de intermediario entre el cliente y un servicio web SOAP de
 
 ## Documentacion
 
-Proximamente en postman
+https://documenter.getpostman.com/view/10747795/T17M7RNd
 
 ## Endpoint del servicio
 
