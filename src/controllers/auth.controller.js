@@ -23,7 +23,7 @@ module.exports = {
       // If the client is not null it means that it was succesfully validated
       if (Client) {
         req.session.clientId = Client.ClientId;
-        // const sessId = req.session.id;
+        req.session.email = Client.Email;
         console.log(req.session);
         // The session middleware is working properly
         res.json({ message: 'Login Successful' });
