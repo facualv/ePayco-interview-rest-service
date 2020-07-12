@@ -24,6 +24,7 @@ module.exports = {
       if (Client) {
         req.session.clientId = Client.ClientId;
         req.session.email = Client.Email;
+        req.session.phone = Client.Phone
         console.log(req.session);
         // The session middleware is working properly
         res.json({ message: 'Login Successful' });
