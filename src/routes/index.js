@@ -4,7 +4,11 @@ const session = require('express-session');
 const helmet = require('helmet');
 const cors = require('cors');
 const { SESSION_LIFETIME, SESSION_NAME, SESSION_SECRET } = require('../config');
-const { NotFoundMiddleware, ErrorMiddleware } = require('../middlewares');
+const {
+  NotFoundMiddleware,
+  ErrorMiddleware,
+  PaymentConfirmationMiddleware
+} = require('../middlewares');
 const {
   AuthController,
   TransactionController,
@@ -36,22 +40,25 @@ router.use(
   })
 );
 
-//Working Properly
-router.post('/signup', AuthController.signIn);
+//Routes
+router.post('/signup', AuthController.signUp);
 router.post('/login', AuthController.login);
 
 //Email is sended itill need to connect to the soap service
-router.post('/payment', TransactionController.payment);
+router.post('/payment', PaymentConfirmationMiddleware, TransactionController.payment);
+
 
 router.post('/getBalance', WalletController.getBalace);
 
-router.post('/recharge', (req, res, next) => {
-  console.log(req.body);
+// router.post('/recharge', (req, res, next) => {
+//   console.log(req.body);
 
-  res.json({
-    message: 'Recharge Route'
-  });
-});
+//   res.json({
+//     message: 'Recharge Route'
+//   });
+// });
+
+router.post('/recharge', TransactionController.recharge);
 
 //Other Middlewares
 router.use(NotFoundMiddleware);
