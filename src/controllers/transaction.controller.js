@@ -9,8 +9,8 @@ async function payment(req, res) {
 
   //Adds the clienId to the payment data object
   paymentData.clientId = req.session.clientId;
-  const payementResponse = await paymentService(paymentData);
-  res.send(payementResponse);
+  const paymentResponse = await paymentService(paymentData);
+  res.send(paymentResponse);
 }
 
 async function recharge(req, res) {
