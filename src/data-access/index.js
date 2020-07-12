@@ -1,5 +1,5 @@
 module.exports = {
-  LogIn: require('./login.data-access'),
-  SignUp: require('./signup.data-access'),
-  GetBalance: require('./balance.data-access')
+  AuthDataAccess: require('./auth.data-access'),
+  WalletDataAccess: require('./wallet.data-access'),
+  TransactionDataAcces: require('./transaction.data-access')
 };
