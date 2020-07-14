@@ -46,18 +46,7 @@ router.post('/login', AuthController.login);
 
 //Email is sended itill need to connect to the soap service
 router.post('/payment', PaymentConfirmationMiddleware, TransactionController.payment);
-
-
 router.post('/getBalance', WalletController.getBalace);
-
-// router.post('/recharge', (req, res, next) => {
-//   console.log(req.body);
-
-//   res.json({
-//     message: 'Recharge Route'
-//   });
-// });
-
 router.post('/recharge', TransactionController.recharge);
 
 //Other Middlewares
